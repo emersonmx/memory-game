@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://assets/images/cards/n.tex" type="Texture" id=1]
+
+[node name="card" type="Sprite"]
+
+texture = ExtResource( 1 )
+centered = false
+
+
