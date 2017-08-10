@@ -35,7 +35,7 @@ transform/pos = Vector2( 16, 16 )
 
 [node name="selection" type="Sprite" parent="."]
 
-transform/pos = Vector2( 81.7348, 58.0747 )
+visibility/visible = false
 texture = ExtResource( 4 )
 centered = false
 

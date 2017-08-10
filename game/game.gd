@@ -28,25 +28,7 @@ onready var cards_node = get_node('cards')
 onready var selection_node = get_node('selection')
 
 func _ready():
-	set_process_input(true)
-
 	create_cards()
-	update_selection()
-
-func _input(event):
-	if event.is_action_pressed('ui_up'):
-		selection.y -= 1
-	elif event.is_action_pressed('ui_down'):
-		selection.y += 1
-	if event.is_action_pressed('ui_left'):
-		selection.x -= 1
-	elif event.is_action_pressed('ui_right'):
-		selection.x += 1
-
-	selection.x = clamp(selection.x, 0, CARDS_PER_COLUMN - 1)
-	selection.y = clamp(selection.y, 0, CARDS_PER_ROW - 1)
-
-	update_selection()
 
 func create_cards():
 	for i in range(CARDS_PER_ROW):
@@ -59,15 +41,19 @@ func create_cards():
 
 func create_card(i, j):
 	var card_instance = card_node.instance()
+	card_instance.connect('card_selected', self, '_on_card_selected')
+	card_instance.connect('card_hovered', self, '_on_card_hovered')
 	var position = Vector2(
 		CARD_MARGIN.x * j + CARD_SIZE.x * j,
 		CARD_MARGIN.y * i + CARD_SIZE.y * i)
 	card_instance.set_pos(position)
-	card_instance.set_texture(card_textures[Card.N])
+	card_instance.get_node('sprite').set_texture(card_textures[Card.N])
 	cards_node.add_child(card_instance)
+	
+func _on_card_selected(card):
+	print('Selected')
 
-func update_selection():
-	var position = Vector2()
-	position.x = CARD_MARGIN.x * selection.x + CARD_SIZE.x * selection.x + 13
-	position.y = CARD_MARGIN.y * selection.y + CARD_SIZE.y * selection.y + 13
-	selection_node.set_pos(position)
+func _on_card_hovered(card):
+	var offset = Vector2(3, 3)
+	selection_node.set_pos(card.get_global_pos() - offset)
+	selection_node.show()
