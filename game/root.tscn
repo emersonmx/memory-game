@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://game.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/striped-repeat.tex" type="Texture" id=2]
 [ext_resource path="res://assets/images/black-repeat.tex" type="Texture" id=3]
 [ext_resource path="res://assets/images/selection.tex" type="Texture" id=4]
+[ext_resource path="res://selection.gd" type="Script" id=5]
 
 [node name="world" type="Node2D"]
 
@@ -38,5 +39,15 @@ transform/pos = Vector2( 16, 16 )
 visibility/visible = false
 texture = ExtResource( 4 )
 centered = false
+script/script = ExtResource( 5 )
+
+[node name="timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
 
 

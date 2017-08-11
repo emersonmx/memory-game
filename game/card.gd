@@ -3,6 +3,17 @@ extends Area2D
 signal card_selected
 signal card_hovered
 
+var type
+var front
+var back
+var flipped = false setget flipped_set
+
+func init(front, back, type):
+	self.front = front
+	self.back = back
+	self.type = type
+	self.flipped = false
+
 func _ready():
 	set_process_input(true)
 
@@ -13,3 +24,11 @@ func _input_event(viewport, event, shape_idx):
 		emit_signal('card_selected', self)
 	if (event.type == InputEvent.MOUSE_MOTION):
 		emit_signal('card_hovered', self)
+
+func flipped_set(value):
+	flipped = value
+	var sprite_node = get_node('sprite')
+	if value:
+		sprite_node.set_texture(front)
+	else:
+		sprite_node.set_texture(back)

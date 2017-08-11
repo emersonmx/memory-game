@@ -17,6 +17,8 @@ var _card_pool = [
 	Card.STAR, Card.STAR, Card.STAR, Card.STAR
 ]
 var selection = Vector2(0, 0)
+var first_card = null
+var second_card = null
 
 var card_textures = {
 	Card.BLANK: preload('res://assets/images/cards/blank.tex'),
@@ -29,7 +31,6 @@ var card_textures = {
 	Card.STAR: preload('res://assets/images/cards/star.tex'),
 }
 
-
 var card_node = preload('res://card.tscn')
 
 onready var cards_node = get_node('cards')
@@ -40,7 +41,6 @@ func _ready():
 
 func create_cards():
 	var card_list = _create_card_list()
-
 	for i in range(CARDS_PER_ROW):
 		cards.append([])
 		cards[i] = []
@@ -48,8 +48,7 @@ func create_cards():
 			cards[i].append([])
 			var cardType = card_list.back()
 			cards[i][j] = cardType
-			create_card(i, j, cardType)
-
+			create_card(i, j, cardType, Card.N)
 			card_list.pop_back()
 
 func _create_card_list():
@@ -60,21 +59,45 @@ func _create_card_list():
 		result.append(card)
 	return result
 
-func create_card(i, j, type):
+func create_card(i, j, type, back_type):
 	var card_instance = card_node.instance()
+	card_instance.init(card_textures[type], card_textures[back_type], type)
 	card_instance.connect('card_selected', self, '_on_card_selected')
-	card_instance.connect('card_hovered', self, '_on_card_hovered')
+	card_instance.connect('card_hovered', selection_node, '_on_card_hovered')
+
 	var position = Vector2(
 		CARD_MARGIN.x * j + CARD_SIZE.x * j,
 		CARD_MARGIN.y * i + CARD_SIZE.y * i)
+	card_instance.flipped = false
 	card_instance.set_pos(position)
-	card_instance.get_node('sprite').set_texture(card_textures[type])
 	cards_node.add_child(card_instance)
 
 func _on_card_selected(card):
-	print('Selected')
+	if card.flipped:
+		return
 
-func _on_card_hovered(card):
-	var offset = Vector2(3, 3)
-	selection_node.set_pos(card.get_global_pos() - offset)
-	selection_node.show()
+	if first_card and second_card:
+		if get_node('timer').get_time_left() > 0:
+			return
+
+		first_card = null
+		second_card = null
+
+	if first_card and first_card == card:
+		print('same')
+		return
+
+	card.flipped = true
+
+	if first_card == null:
+		first_card = card
+		return
+
+	second_card = card
+
+	if first_card.type != second_card.type:
+		get_node('timer').start()
+
+func _on_timer_timeout():
+	first_card.flipped = false
+	second_card.flipped = false

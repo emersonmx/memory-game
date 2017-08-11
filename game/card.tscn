@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10.9962, 15.9912 )
+extents = Vector2( 13.3715, 18.3227 )
 
 [node name="card" type="Area2D"]
 
