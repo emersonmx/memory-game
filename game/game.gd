@@ -9,6 +9,13 @@ enum Card {
 }
 
 var cards = []
+var _card_pool = [
+	Card.ONE_UP, Card.ONE_UP,
+	Card.COIN10, Card.COIN10, Card.COIN20, Card.COIN20,
+	Card.FLOWER, Card.FLOWER, Card.FLOWER, Card.FLOWER,
+	Card.MUSHROOM, Card.MUSHROOM, Card.MUSHROOM, Card.MUSHROOM,
+	Card.STAR, Card.STAR, Card.STAR, Card.STAR
+]
 var selection = Vector2(0, 0)
 
 var card_textures = {
@@ -22,6 +29,7 @@ var card_textures = {
 	Card.STAR: preload('res://assets/images/cards/star.tex'),
 }
 
+
 var card_node = preload('res://card.tscn')
 
 onready var cards_node = get_node('cards')
@@ -31,15 +39,28 @@ func _ready():
 	create_cards()
 
 func create_cards():
+	var card_list = _create_card_list()
+
 	for i in range(CARDS_PER_ROW):
 		cards.append([])
 		cards[i] = []
 		for j in range(CARDS_PER_COLUMN):
 			cards[i].append([])
-			cards[i][j] = Card.N
-			create_card(i, j)
+			var cardType = card_list.back()
+			cards[i][j] = cardType
+			create_card(i, j, cardType)
 
-func create_card(i, j):
+			card_list.pop_back()
+
+func _create_card_list():
+	randomize()
+	_card_pool = utils.shuffle_array(_card_pool)
+	var result = []
+	for card in _card_pool:
+		result.append(card)
+	return result
+
+func create_card(i, j, type):
 	var card_instance = card_node.instance()
 	card_instance.connect('card_selected', self, '_on_card_selected')
 	card_instance.connect('card_hovered', self, '_on_card_hovered')
@@ -47,9 +68,9 @@ func create_card(i, j):
 		CARD_MARGIN.x * j + CARD_SIZE.x * j,
 		CARD_MARGIN.y * i + CARD_SIZE.y * i)
 	card_instance.set_pos(position)
-	card_instance.get_node('sprite').set_texture(card_textures[Card.N])
+	card_instance.get_node('sprite').set_texture(card_textures[type])
 	cards_node.add_child(card_instance)
-	
+
 func _on_card_selected(card):
 	print('Selected')
 
