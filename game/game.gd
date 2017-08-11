@@ -38,11 +38,6 @@ onready var selection_node = get_node('selection')
 
 func _ready():
 	create_cards()
-	set_process(true)
-
-func _process(delta):
-	if _is_gameover():
-		print('Game Over')
 
 func create_cards():
 	var card_list = _create_card_list()
@@ -108,6 +103,9 @@ func _on_card_selected(card):
 
 	if first_card.type != second_card.type:
 		get_node('timer').start()
+
+	if _is_gameover():
+		print('Game Over')
 
 func _on_timer_timeout():
 	first_card.flipped = false
