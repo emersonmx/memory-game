@@ -38,6 +38,13 @@ onready var selection_node = get_node('selection')
 
 func _ready():
 	create_cards()
+	set_process(true)
+
+func _process(delta):
+	if _is_gameover():
+		print('Game Over')
+	else:
+		print('Continue')
 
 func create_cards():
 	var card_list = _create_card_list()
@@ -71,6 +78,12 @@ func create_card(i, j, type, back_type):
 	card_instance.flipped = false
 	card_instance.set_pos(position)
 	cards_node.add_child(card_instance)
+
+func _is_gameover():
+	var all_cards_flipped = true
+	for card in cards_node.get_children():
+		all_cards_flipped = all_cards_flipped and card.flipped
+	return all_cards_flipped
 
 func _on_card_selected(card):
 	if card.flipped:
