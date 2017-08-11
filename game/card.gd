@@ -6,7 +6,7 @@ signal card_hovered
 var type
 var front
 var back
-var flipped = false setget flipped_set
+var flipped = false setget set_flipped
 
 func init(front, back, type):
 	self.front = front
@@ -25,7 +25,7 @@ func _input_event(viewport, event, shape_idx):
 	if (event.type == InputEvent.MOUSE_MOTION):
 		emit_signal('card_hovered', self)
 
-func flipped_set(value):
+func set_flipped(value):
 	flipped = value
 	var sprite_node = get_node('sprite')
 	if value:
