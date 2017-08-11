@@ -12,7 +12,7 @@ func init(front, back, type):
 	self.front = front
 	self.back = back
 	self.type = type
-	self.flipped = false
+	flipped = false
 
 func _ready():
 	set_process_input(true)

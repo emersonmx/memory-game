@@ -43,8 +43,6 @@ func _ready():
 func _process(delta):
 	if _is_gameover():
 		print('Game Over')
-	else:
-		print('Continue')
 
 func create_cards():
 	var card_list = _create_card_list()
