@@ -1,7 +1,7 @@
 extends Node2D
 
 const CARD_SIZE = Vector2(22, 32)
-const CARD_MARGIN = Vector2(5, 8)
+const CARD_MARGIN = Vector2(6, 8)
 const CARDS_PER_ROW = 3
 const CARDS_PER_COLUMN = 6
 enum Card {
