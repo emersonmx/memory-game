@@ -38,6 +38,9 @@ transform/pos = Vector2( 0.35849, -0.35849 )
 [node name="cards" type="Node2D" parent="."]
 
 transform/pos = Vector2( 15, 16 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="selection" type="Sprite" parent="."]
 
@@ -66,6 +69,9 @@ margin/top = 133.0
 margin/right = 182.0
 margin/bottom = 152.0
 custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="time_countdown" parent="status_panel" instance=ExtResource( 6 )]
 
@@ -94,6 +100,7 @@ margin/bottom = 75.0
 
 [node name="click2start_panel" parent="." instance=ExtResource( 7 )]
 
+editor/display_folded = true
 margin/left = 32.0
 margin/top = 48.0
 margin/right = 160.0
