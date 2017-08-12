@@ -36,8 +36,10 @@ var card_textures = {
 
 var card_node = preload('res://scenes/card.tscn')
 
+onready var start_timer_node = get_node('start_timer')
 onready var cards_node = get_node('cards')
 onready var selection_node = get_node('selection')
+onready var click2start_panel_node = get_node('click2start_panel')
 onready var time_countdown_node = (
 	get_node('status_panel').get_node('time_countdown'))
 onready var miss_counter_node = (
@@ -45,9 +47,17 @@ onready var miss_counter_node = (
 
 func _ready():
 	create_cards()
+	get_tree().set_pause(true)
 	set_process(true)
 
 func _process(delta):
+	if Input.is_action_pressed('action'):
+		click2start_panel_node.get_node('text').set_text('shuffling')
+		start_timer_node.start()
+
+	if get_tree().is_paused():
+		return
+
 	time_countdown_node.update(delta)
 
 func create_cards():
@@ -73,8 +83,8 @@ func _create_card_list():
 func create_card(i, j, type, back_type):
 	var card_instance = card_node.instance()
 	card_instance.init(card_textures[type], card_textures[back_type], type)
-	card_instance.connect('card_selected', self, '_on_card_selected')
-	card_instance.connect('card_hovered', selection_node, '_on_card_hovered')
+	card_instance.connect('mouse_enter', selection_node, '_on_mouse_enter', [card_instance])
+	card_instance.connect('input_event', self, '_on_input_event', [card_instance])
 
 	var position = Vector2(
 		CARD_MARGIN.x * j + CARD_SIZE.x * j,
@@ -101,17 +111,17 @@ func _show_gameover():
 	get_node('gameover_panel').show()
 	selection_node.queue_free()
 
-func _on_card_selected(card):
-	if gameover:
-		return
+func _start_game():
+	click2start_panel_node.hide()
+	get_tree().set_pause(false)
 
-	if card.flipped:
+func _on_input_event(event, card):
+	if _ignore_selection(event, card):
 		return
 
 	if first_card and second_card:
 		if get_node('timer').get_time_left() > 0:
 			return
-
 		first_card = null
 		second_card = null
 
@@ -134,9 +144,17 @@ func _on_card_selected(card):
 	if _is_gameover():
 		_show_gameover()
 
+func _ignore_selection(event, card):
+	if !event.is_action_pressed('action'):
+		return true
+	if get_tree().is_paused():
+		return true
+	if gameover:
+		return true
+	if card.flipped:
+		return true
+	return false
+
 func _on_timer_timeout():
 	first_card.flipped = false
 	second_card.flipped = false
-
-func _on_finished_counting():
-	_show_gameover()
