@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=1]
 
-[ext_resource path="res://game.gd" type="Script" id=1]
+[ext_resource path="res://scripts/game.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/striped-repeat.tex" type="Texture" id=2]
 [ext_resource path="res://assets/images/black-repeat.tex" type="Texture" id=3]
 [ext_resource path="res://assets/images/selection.tex" type="Texture" id=4]
-[ext_resource path="res://selection.gd" type="Script" id=5]
+[ext_resource path="res://scripts/selection.gd" type="Script" id=5]
 [ext_resource path="res://assets/images/panel.tex" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/nes-font.fnt" type="BitmapFont" id=7]
 
@@ -70,6 +70,7 @@ autostart = false
 
 [node name="gameover_panel" type="Panel" parent="."]
 
+visibility/visible = false
 rect/min_size = Vector2( 88, 27 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -81,7 +82,8 @@ margin/right = 160.0
 margin/bottom = 75.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_lock_": true
 }
 
 [node name="text" type="Label" parent="gameover_panel"]

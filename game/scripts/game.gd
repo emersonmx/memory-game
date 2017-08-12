@@ -19,6 +19,7 @@ var _card_pool = [
 var selection = Vector2(0, 0)
 var first_card = null
 var second_card = null
+var gameover = false
 
 var card_textures = {
 	Card.BLANK: preload('res://assets/images/cards/blank.tex'),
@@ -31,13 +32,14 @@ var card_textures = {
 	Card.STAR: preload('res://assets/images/cards/star.tex'),
 }
 
-var card_node = preload('res://card.tscn')
+var card_node = preload('res://scenes/card.tscn')
 
 onready var cards_node = get_node('cards')
 onready var selection_node = get_node('selection')
 
 func _ready():
 	create_cards()
+	set_process_input(true)
 
 func create_cards():
 	var card_list = _create_card_list()
@@ -73,9 +75,14 @@ func create_card(i, j, type, back_type):
 	cards_node.add_child(card_instance)
 
 func _is_gameover():
+	if gameover:
+		return gameover
+
 	var all_cards_flipped = true
 	for card in cards_node.get_children():
 		all_cards_flipped = all_cards_flipped and card.flipped
+
+	gameover = all_cards_flipped
 	return all_cards_flipped
 
 func _on_card_selected(card):
@@ -105,7 +112,8 @@ func _on_card_selected(card):
 		get_node('timer').start()
 
 	if _is_gameover():
-		print('Game Over')
+		get_node('gameover_panel').show()
+		selection_node.queue_free()
 
 func _on_timer_timeout():
 	first_card.flipped = false
