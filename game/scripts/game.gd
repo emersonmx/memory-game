@@ -96,6 +96,8 @@ func _is_gameover():
 
 func _show_gameover():
 	gameover = true
+	time_countdown_node.stop_count = true
+	miss_counter_node.stop_count = true
 	get_node('gameover_panel').show()
 	selection_node.queue_free()
 

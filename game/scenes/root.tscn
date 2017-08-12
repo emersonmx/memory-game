@@ -68,7 +68,6 @@ custom_styles/panel = SubResource( 1 )
 transform/pos = Vector2( 7, 5 )
 count = 999
 to = 0
-mode = 1
 
 [node name="miss_counter" parent="status_panel" instance=ExtResource( 6 )]
 
