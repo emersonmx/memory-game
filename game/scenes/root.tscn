@@ -52,7 +52,6 @@ autostart = false
 
 [node name="status_panel" type="Panel" parent="."]
 
-editor/display_folded = true
 rect/min_size = Vector2( 88, 0 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -67,19 +66,20 @@ custom_styles/panel = SubResource( 1 )
 [node name="time_countdown" parent="status_panel" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 7, 5 )
+count = 999
+to = 0
+mode = 1
 
 [node name="miss_counter" parent="status_panel" instance=ExtResource( 6 )]
 
 editor/display_folded = true
-transform/pos = Vector2( 106, 5 )
+transform/pos = Vector2( 115, 5 )
+to = 99
+mode = 0
 
 [node name="text" parent="status_panel/miss_counter"]
 
 text = "miss"
-
-[node name="value" parent="status_panel/miss_counter"]
-
-text = "0"
 
 [node name="gameover_panel" parent="." instance=ExtResource( 7 )]
 
@@ -90,6 +90,10 @@ margin/right = 160.0
 margin/bottom = 75.0
 
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+
+[connection signal="finished_counting" from="status_panel/time_countdown" to="." method="_on_finished_counting"]
+
+[connection signal="finished_counting" from="status_panel/miss_counter" to="." method="_on_finished_counting"]
 
 
 [editable path="status_panel/miss_counter"]

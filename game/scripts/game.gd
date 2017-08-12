@@ -8,6 +8,8 @@ enum Card {
 	BLANK, ONE_UP, COIN10, COIN20, FLOWER, MUSHROOM, N, STAR
 }
 
+var time = 999
+var misses = 0
 var cards = []
 var _card_pool = [
 	Card.ONE_UP, Card.ONE_UP,
@@ -36,10 +38,17 @@ var card_node = preload('res://scenes/card.tscn')
 
 onready var cards_node = get_node('cards')
 onready var selection_node = get_node('selection')
+onready var time_countdown_node = (
+	get_node('status_panel').get_node('time_countdown'))
+onready var miss_counter_node = (
+	get_node('status_panel').get_node('miss_counter'))
 
 func _ready():
 	create_cards()
-	set_process_input(true)
+	set_process(true)
+
+func _process(delta):
+	time_countdown_node.update(delta)
 
 func create_cards():
 	var card_list = _create_card_list()
@@ -85,7 +94,15 @@ func _is_gameover():
 	gameover = all_cards_flipped
 	return all_cards_flipped
 
+func _show_gameover():
+	gameover = true
+	get_node('gameover_panel').show()
+	selection_node.queue_free()
+
 func _on_card_selected(card):
+	if gameover:
+		return
+
 	if card.flipped:
 		return
 
@@ -97,7 +114,6 @@ func _on_card_selected(card):
 		second_card = null
 
 	if first_card and first_card == card:
-		print('same')
 		return
 
 	card.flipped = true
@@ -109,12 +125,16 @@ func _on_card_selected(card):
 	second_card = card
 
 	if first_card.type != second_card.type:
-		get_node('timer').start()
+		miss_counter_node.update(1)
+		if !miss_counter_node.is_finished_counting():
+			get_node('timer').start()
 
 	if _is_gameover():
-		get_node('gameover_panel').show()
-		selection_node.queue_free()
+		_show_gameover()
 
 func _on_timer_timeout():
 	first_card.flipped = false
 	second_card.flipped = false
+
+func _on_finished_counting():
+	_show_gameover()
