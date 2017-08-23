@@ -5,7 +5,6 @@
 
 [node name="background" type="Sprite"]
 
-transform/scale = Vector2( 1, 1 )
 texture = ExtResource( 1 )
 centered = false
 region = true

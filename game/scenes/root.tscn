@@ -26,7 +26,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[node name="world" type="Node2D"]
+[node name="game" type="Node2D"]
 
 process/pause_mode = 2
 script/script = ExtResource( 1 )
