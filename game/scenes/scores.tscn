@@ -1,0 +1,9 @@
+[gd_scene format=1]
+
+[node name="scores" type="Node2D"]
+
+[node name="game_screen" type="Sprite" parent="."]
+
+centered = false
+
+
