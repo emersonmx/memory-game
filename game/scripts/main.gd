@@ -2,11 +2,11 @@ extends Node2D
 
 var game_scene = preload('res://scenes/game.tscn')
 var scores_scene = preload('res://scenes/scores.tscn')
-onready var animation_node = get_node('animation')
+onready var scene_animation = get_node('scene_animation')
 
 func _ready():
 	_add_game_scene()
-	animation_node.connect('finished', self, '_on_animation_finished')
+	scene_animation.connect('finished', self, '_on_animation_finished')
 
 func _add_game_scene():
 	var game = game_scene.instance()
@@ -20,17 +20,17 @@ func _add_scores_scene():
 	add_child(scores)
 
 func _on_animation_finished():
-	if animation_node.get_current_animation() == 'show_scores':
+	if scene_animation.get_current_animation() == 'show_scores':
 		get_node('game').queue_free()
-	elif animation_node.get_current_animation() == 'show_game':
+	elif scene_animation.get_current_animation() == 'show_game':
 		get_node('scores').queue_free()
 
 func _on_show_scores():
 	_add_scores_scene()
-	animation_node.stop_all()
-	animation_node.play('show_scores')
+	scene_animation.stop_all()
+	scene_animation.play('scroll_down')
 
 func _on_show_game():
 	_add_game_scene()
-	animation_node.stop_all()
-	animation_node.play('show_game')
+	scene_animation.stop_all()
+	scene_animation.play('scroll_up')
