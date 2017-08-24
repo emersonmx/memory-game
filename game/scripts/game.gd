@@ -8,6 +8,8 @@ enum Card {
 	BLANK, ONE_UP, COIN10, COIN20, FLOWER, MUSHROOM, N, STAR
 }
 
+signal show_scores
+
 var time = 999
 var misses = 0
 var cards = []
@@ -54,12 +56,6 @@ func _process(delta):
 	if Input.is_action_pressed('action'):
 		click2start_panel_node.get_node('text').set_text('shuffling')
 		start_timer_node.start()
-
-	var image = get_viewport().get_screen_capture()
-	if gameover and not image.empty():
-		var tex = ImageTexture.new()
-		tex.create(image.get_width(), image.get_height(), image.get_format(), 0)
-		tex.set_data(image)
 
 	if get_tree().is_paused():
 		return
@@ -116,7 +112,7 @@ func _show_gameover():
 	miss_counter_node.stop_count = true
 	get_node('gameover_panel').show()
 	selection_node.queue_free()
-	get_viewport().queue_screen_capture()
+	emit_signal('show_scores')
 
 func _start_game():
 	click2start_panel_node.hide()
