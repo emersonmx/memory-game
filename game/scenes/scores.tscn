@@ -36,12 +36,16 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="score_entry" type="Node2D" parent="."]
+[node name="score_entries" type="Node2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 100, 40 )
+
+[node name="score_entry" type="Node2D" parent="score_entries"]
+
 script/script = ExtResource( 4 )
 
-[node name="name" type="Label" parent="score_entry"]
+[node name="name" type="Label" parent="score_entries/score_entry"]
 
 anchor/left = 3
 anchor/top = 3
@@ -63,7 +67,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="dots" type="Label" parent="score_entry"]
+[node name="dots" type="Label" parent="score_entries/score_entry"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -81,7 +85,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="score" type="Label" parent="score_entry"]
+[node name="score" type="Label" parent="score_entries/score_entry"]
 
 anchor/left = 3
 anchor/top = 3
