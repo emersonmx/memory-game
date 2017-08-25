@@ -84,6 +84,9 @@ margin/top = 131.0
 margin/right = 182.0
 margin/bottom = 152.0
 custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="time_countdown" parent="status_panel" instance=ExtResource( 6 )]
 
