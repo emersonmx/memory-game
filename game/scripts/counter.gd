@@ -9,6 +9,7 @@ enum Mode {
 export(int) var count = 0
 export(int) var to = 999
 export(int, 'Increment', 'Decrement') var mode = Mode.INCREMENT
+export(int) var pad_zeros = 3
 var _rounded_count = 0
 var _is_finished_counting = false
 var stop_count = false
@@ -47,4 +48,4 @@ func update(value):
 
 func _update_text_value():
 	_rounded_count = round(count)
-	value_label.set_text(str(_rounded_count))
+	value_label.set_text(str(_rounded_count).pad_zeros(pad_zeros))

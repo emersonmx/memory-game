@@ -54,7 +54,7 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_pressed('action'):
-		click2start_panel_node.get_node('text').set_text('shuffling')
+		click2start_panel_node.get_node('text').set_text('SHUFFLING')
 		start_timer_node.start()
 
 	if get_tree().is_paused():

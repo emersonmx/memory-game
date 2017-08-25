@@ -9,6 +9,9 @@ texture = ExtResource( 1 )
 centered = false
 region = true
 region_rect = Rect2( 0, 0, 192, 152 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="black" type="Sprite" parent="."]
 

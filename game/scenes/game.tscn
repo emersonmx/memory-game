@@ -74,45 +74,51 @@ autostart = false
 
 [node name="status_panel" type="Panel" parent="."]
 
-editor/display_folded = true
 rect/min_size = Vector2( 88, 0 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 10.0
-margin/top = 133.0
+margin/top = 131.0
 margin/right = 182.0
 margin/bottom = 152.0
 custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="time_countdown" parent="status_panel" instance=ExtResource( 6 )]
 
-transform/pos = Vector2( 7, 5 )
+transform/pos = Vector2( 43, 11 )
 count = 999
 to = 0
 
 [node name="miss_counter" parent="status_panel" instance=ExtResource( 6 )]
 
 editor/display_folded = true
-transform/pos = Vector2( 115, 5 )
+transform/pos = Vector2( 145, 11 )
 to = 99
 mode = 0
+pad_zeros = 2
+
+[node name="text" parent="status_panel/miss_counter"]
+
+text = "MISS"
+
+[node name="value" parent="status_panel/miss_counter"]
+
+text = "0"
 
 [node name="click2start_panel" parent="." instance=ExtResource( 7 )]
 
-margin/left = 32.0
+editor/display_folded = true
+margin/left = 22.0
 margin/top = 48.0
-margin/right = 160.0
-margin/bottom = 75.0
+margin/right = 170.0
+margin/bottom = 80.0
 custom_styles/panel = SubResource( 2 )
 
 [node name="text" parent="click2start_panel"]
 
-text = "click to start"
+text = "CLICK TO START"
 
 [node name="gameover_panel" parent="." instance=ExtResource( 7 )]
 
@@ -120,8 +126,7 @@ visibility/visible = false
 margin/left = 32.0
 margin/top = 48.0
 margin/right = 160.0
-margin/bottom = 75.0
-custom_styles/panel = SubResource( 2 )
+margin/bottom = 80.0
 
 [node name="start_timer" type="Timer" parent="."]
 
@@ -135,4 +140,5 @@ autostart = false
 [connection signal="timeout" from="start_timer" to="." method="_start_game"]
 
 
+[editable path="status_panel/miss_counter"]
 [editable path="click2start_panel"]
