@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scripts/scores.gd" type="Script" id=1]
 [ext_resource path="res://scenes/background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/fonts/default-font.fnt" type="BitmapFont" id=3]
+[ext_resource path="res://scripts/score_entry.gd" type="Script" id=4]
 
 [node name="scores" type="Node2D"]
 
@@ -37,8 +38,8 @@ max_lines_visible = -1
 
 [node name="score_entry" type="Node2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 100, 40 )
+script/script = ExtResource( 4 )
 
 [node name="name" type="Label" parent="score_entry"]
 
