@@ -10,14 +10,15 @@ func _ready():
 
 func _add_game_scene():
 	var game = game_scene.instance()
-	game.connect('show_scores', self, '_on_show_scores')
 	add_child(game)
+	game.connect('show_scores', self, '_on_show_scores')
 
-func _add_scores_scene():
+func _add_scores_scene(score):
 	var scores = scores_scene.instance()
+	add_child(scores)
 	scores.connect('show_game', self, '_on_show_game')
 	scores.set_pos(Vector2(0, 152))
-	add_child(scores)
+	scores.player_score = score
 
 func _on_animation_finished():
 	if scene_animation.get_current_animation() == 'show_scores':
@@ -25,8 +26,8 @@ func _on_animation_finished():
 	elif scene_animation.get_current_animation() == 'show_game':
 		get_node('scores').queue_free()
 
-func _on_show_scores():
-	_add_scores_scene()
+func _on_show_scores(score):
+	_add_scores_scene(score)
 	scene_animation.stop_all()
 	scene_animation.play('scroll_down')
 

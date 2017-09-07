@@ -2,6 +2,8 @@ extends Node2D
 
 signal show_game
 
+var player_score = {}
+
 func _ready():
 	set_process_input(true)
 	set_process(true)

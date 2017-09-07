@@ -112,7 +112,10 @@ func _show_gameover():
 	miss_counter_node.stop_count = true
 	get_node('gameover_panel').show()
 	selection_node.queue_free()
-	emit_signal('show_scores')
+	emit_signal('show_scores', {
+		'miss': int(miss_counter_node.count),
+		'time': int(time_countdown_node.count)
+	})
 
 func _start_game():
 	click2start_panel_node.hide()
