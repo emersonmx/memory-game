@@ -2,12 +2,14 @@ extends Node2D
 
 signal finished_counting;
 
+const MAX_COUNT = 999
+
 enum Mode {
 	INCREMENT, DECREMENT
 }
 
 export(int) var count = 0
-export(int) var to = 999
+export(int) var to = MAX_COUNT
 export(int, 'Increment', 'Decrement') var mode = Mode.INCREMENT
 export(int) var pad_zeros = 3
 var _rounded_count = 0
@@ -22,6 +24,11 @@ func _ready():
 
 func is_finished_counting():
 	return _is_finished_counting
+
+func get_time():
+	if mode == DECREMENT:
+		return MAX_COUNT - int(count)
+	return count
 
 func update(value):
 	if stop_count:

@@ -5,9 +5,11 @@ const MAX_SCORES = 10
 onready var entry_scene = preload('res://scenes/score_entry.tscn')
 
 func _ready():
-	_setup_entries()
+	show_entries()
 
-func _setup_entries():
+func show_entries():
+	_clear_children()
+
 	var base_pos = Vector2()
 	var i = 0
 	for score in _load_scores():
@@ -18,6 +20,10 @@ func _setup_entries():
 		entry.set_score("%s/%s" % [str(score['miss']).pad_zeros(2),
 						str(score['time']).pad_zeros(3)])
 		i += 1
+
+func _clear_children():
+	for i in range(0, get_child_count()):
+    	get_child(i).queue_free()
 
 func _load_scores():
 	var scores = []

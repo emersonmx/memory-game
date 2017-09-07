@@ -1,9 +1,56 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://scripts/scores.gd" type="Script" id=1]
 [ext_resource path="res://scenes/background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/fonts/default-font.fnt" type="BitmapFont" id=3]
 [ext_resource path="res://scripts/score_entries.gd" type="Script" id=4]
+[ext_resource path="res://assets/images/panel.tex" type="Texture" id=5]
+[ext_resource path="res://scripts/input.gd" type="Script" id=6]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 16, 16 )
+margin/left = 3.125
+margin/right = 3.125
+margin/top = 4.125
+margin/bottom = 4.125
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxFlat" id=2]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = 5.0
+content_margin/bottom = -1.0
+bg_color = Color( 0.6, 0.6, 0.6, 1 )
+light_color = Color( 0.8, 0.8, 0.8, 1 )
+dark_color = Color( 0.8, 0.8, 0.8, 1 )
+border_size = 0
+border_blend = false
+draw_bg = false
 
 [node name="scores" type="Node2D"]
 
@@ -40,8 +87,48 @@ max_lines_visible = -1
 
 [node name="score_entries" type="Node2D" parent="."]
 
-transform/pos = Vector2( 100, 40 )
+transform/pos = Vector2( 16, 40 )
 script/script = ExtResource( 4 )
+
+[node name="panel" type="Panel" parent="."]
+
+rect/min_size = Vector2( 88, 27 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 48.0
+margin/top = 32.0
+margin/right = 144.0
+margin/bottom = 64.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="input" type="LineEdit" parent="panel"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 48.0
+margin/top = 8.0
+margin/right = -48.0
+margin/bottom = -8.0
+custom_styles/read_only = SubResource( 5 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/cursor_color = Color( 0, 0, 0, 1 )
+placeholder/alpha = 1.0
+align = 1
+max_length = 7
+focus_mode = 2
+caret/caret_blink = true
+caret/caret_blink_speed = 0.65
+script/script = ExtResource( 6 )
 
 
 [editable path="background"]

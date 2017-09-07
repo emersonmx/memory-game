@@ -1,13 +1,25 @@
 extends Node2D
 
-onready var name_node = get_node('name')
-onready var score_node = get_node('score')
+const MAX_SIZE = 20
+
+var name = ''
+var score = ''
+
+onready var text_node = get_node('text')
 
 func _ready():
 	pass
 
 func set_name(value):
-	name_node.set_text(value.to_upper())
+	name = value
+	_upload_text()
 
 func set_score(value):
-	score_node.set_text(value.to_upper())
+	score = value
+	_upload_text()
+
+func  _upload_text():
+	var dots = ''
+	for i in range(name.length() + score.length(), MAX_SIZE):
+		dots += '.'
+	text_node.set_text(name + dots + score)
