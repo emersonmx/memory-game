@@ -27,15 +27,17 @@ func _on_input_done(text):
 		entries_node.save_score(player_score)
 		if entries_node.is_first_entry():
 			entries_node.show_entries()
+			fade_in_count += 1
 		else:
 			entries_node.hide_entries()
 
 func _on_timeout():
 	emit_signal('show_game')
+	print('lol')
 
 func _on_entries_fadded_in():
 	fade_in_count += 1
-	if not entries_node.is_first_entry() && fade_in_count <= 1:
+	if fade_in_count <= 1:
 		return
 	timer_node.start()
 
