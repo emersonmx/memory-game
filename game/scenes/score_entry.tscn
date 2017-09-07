@@ -5,6 +5,7 @@
 
 [node name="score_entry" type="Node2D"]
 
+visibility/visible = false
 script/script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -30,5 +31,19 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="fade_in_timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="fade_out_timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
 
 

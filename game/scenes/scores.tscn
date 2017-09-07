@@ -92,7 +92,6 @@ script/script = ExtResource( 4 )
 
 [node name="panel" type="Panel" parent="."]
 
-editor/display_folded = true
 rect/min_size = Vector2( 88, 27 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
