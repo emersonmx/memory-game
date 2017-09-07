@@ -7,7 +7,7 @@ func _ready():
 	pass
 
 func set_name(value):
-	name_node.set_text(value)
+	name_node.set_text(value.to_upper())
 
 func set_score(value):
-	score_node.set_text(value)
+	score_node.set_text(value.to_upper())
