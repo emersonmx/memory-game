@@ -33,7 +33,6 @@ func _on_input_done(text):
 
 func _on_timeout():
 	emit_signal('show_game')
-	print('lol')
 
 func _on_entries_fadded_in():
 	fade_in_count += 1
